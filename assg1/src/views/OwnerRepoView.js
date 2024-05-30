@@ -1,12 +1,12 @@
-import React from 'react';
-import OwnerRepos from '../components/OwnerRepos';
+import React from "react";
+import OwnerRepos from "../components/OwnerRepos";
 
 const OwnerRepoView = () => {
-    return (
-        <div>
-            <OwnerRepos />
-        </div>
-    )
-}
+  return (
+    <div>
+      <OwnerRepos />
+    </div>
+  );
+};
 
 export default OwnerRepoView;

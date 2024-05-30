@@ -1,5 +1,5 @@
-import react from "react";
-import {RepoList} from "../components/RepoList";
+import React from "react";
+import { RepoList } from "../components/RepoList";
 
 const Dashboard = () => {
   return (
