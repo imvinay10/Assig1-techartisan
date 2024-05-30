@@ -1,15 +1,29 @@
-import { useEffect } from "react";
-import {fetchRepo} from "../controllers/repoController"
+import { useEffect, useState } from "react";
+import {fetchRepo} from "../controllers/repoController";
+import { Link } from "react-router-dom";
 
-const repoList = () => {
+
+export const RepoList = () => {
     const [repos, setRepo] = useState([]);
 
     useEffect(()=> {
             fetchRepo().then(data =>setRepo(data));
     },[]);
 
-    return
-    console.log(data);
-}
+    console.log(repos);
 
-export default repoList;
+    return (
+      <div className="repo-list">
+          <h1>All Repositories List</h1>
+          <ul>
+              {repos.map((repo) => (
+                  <li key={repo.id}>
+                      <Link to={`/repo/${repo.full_name}`}>{repo.name}</Link>
+                  </li>
+              ))}
+          </ul>
+      </div>
+  );
+};
+
+export default RepoList;

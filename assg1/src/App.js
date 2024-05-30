@@ -1,15 +1,20 @@
-import { useEffect, useState } from "react";
-import {fetchRepo} from "./controllers/repoController"
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Dashboard from './views/Dashboard'; 
+import RepoDetailsView from './views/RepoDetailsView';
+import OwnerRepoView from './views/OwnerRepoView';
+// import {RepoList} from "../components/RepoList";
 
-//fetch Testing
-const App = () => {
-    const [repos, setRepo] = useState([]);
-
-    useEffect(()=> {
-            fetchRepo().then(data => setRepo(data));
-    },[]);
-
-    return console.log(repos);
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/repo/:owner/:repo" Component={RepoDetailsView} />
+        <Route path="/owner/:owner" Component={OwnerRepoView} />
+      </Routes>
+    </Router>
+  );
 }
 
 export default App;
