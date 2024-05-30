@@ -1,6 +1,9 @@
 import react, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { fetchRepoDetails } from "../controllers/repoController";
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
+import Badge from "react-bootstrap/Badge";
 
 const RepoDetails = () => {
   const { owner, repo } = useParams();
@@ -14,18 +17,45 @@ const RepoDetails = () => {
   }
 
   return (
-    <div>
-      <h1>Repository : {repoDetails.name}</h1>
-      <p> Description : {repoDetails.description}</p>
-      <p>
-        Owner of repository:{" "}
-        <Link to={`/owner/${repoDetails.owner.login}`}>
-          {repoDetails.owner.login}
-        </Link>
-      </p>
-      <p>Stars: {repoDetails.stargazers_count}</p>
-      <p>Forks: {repoDetails.forks_count}</p>
-    </div>
+    <Card style={{ width: "20rem" }}>
+      <Card.Body>
+        <Card.Img variant="top" src={repoDetails.owner.avatar_url} />
+        <Card.Title>
+          <span>Repository: {repoDetails.name}</span>
+        </Card.Title>
+        <Card.Subtitle>
+          <span>Owned by: {owner}</span>
+        </Card.Subtitle>
+        <Card.Text>
+          <span>
+            <b>About :</b> {repoDetails.description}
+          </span>
+        </Card.Text>
+        <Card.Text>
+          <span>
+            <b>Stars :</b>{" "}
+            <Badge bg="primary" pill>
+              {repoDetails.stargazers_count}
+            </Badge>
+          </span>
+        </Card.Text>
+        <Card.Text>
+          <span>
+            <b>Forks :</b>{" "}
+            <Badge bg="primary" pill>
+              {repoDetails.forks_count}
+            </Badge>
+          </span>
+        </Card.Text>
+        <Button
+          variant="primary"
+          as={Link}
+          to={`/owner/${repoDetails.owner.login}`}
+        >
+          Check Out More By <b>{repoDetails.owner.login}</b>
+        </Button>
+      </Card.Body>
+    </Card>
   );
 };
 
