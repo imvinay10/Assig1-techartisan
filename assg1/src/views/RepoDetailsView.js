@@ -3,7 +3,7 @@ import RepoDetails from "../components/RepoDetails";
 
 const RepoDetailsView = () => {
   return (
-    <div>
+    <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '1rem'}}>
       <RepoDetails />
     </div>
   );

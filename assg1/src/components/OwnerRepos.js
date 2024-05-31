@@ -3,14 +3,20 @@ import { useParams, Link } from "react-router-dom";
 import { fetchOwnerRepos } from "../controllers/repoController";
 import Badge from "react-bootstrap/Badge";
 import ListGroup from "react-bootstrap/ListGroup";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart as RegularHeart } from "@fortawesome/free-regular-svg-icons";
+import { faHeart as SolidHeart } from "@fortawesome/free-solid-svg-icons";
+import { useFavorites } from "../controllers/favoriteController";
 
 const OwnerRepos = () => {
   const { owner } = useParams();
   const [repos, setRepos] = useState([]);
+  const { favorites, handleFavoriteClick } = useFavorites();
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
-    fetchOwnerRepos(owner).then((data) => setRepos(data));
-  }, [owner]);
+    fetchOwnerRepos(owner, page).then((data) => setRepos(data));
+  }, [owner, page]);
 
   return (
     <div className="repo-list">
@@ -33,13 +39,43 @@ const OwnerRepos = () => {
                 <b>About :</b> {repo.description}
               </span>
             </div>
-            <Badge bg="primary" pill>
-              Stars : &nbsp;
-              {repo.stargazers_count}
-            </Badge>
+
+            <div className="d-flex justify-content-center">
+              <div className="d-flex flex-column align-items-center">
+                <FontAwesomeIcon
+                  icon={favorites.includes(repo.id) ? SolidHeart : RegularHeart}
+                  style={{ fontSize: "25px", margin: "10px" }}
+                  onClick={() => handleFavoriteClick(repo.id)}
+                />
+              </div>
+              <div className="d-flex flex-column justify-content-center align-items-center">
+                <Badge
+                  bg="primary"
+                  pill
+                  style={{ padding: "5px", marginBottom: "5px" }}
+                >
+                  Stars: {repo.stargazers_count}
+                </Badge>
+                <Badge bg="primary" pill style={{ padding: "5px" }}>
+                  Forks: {repo.forks_count}
+                </Badge>
+              </div>
+            </div>
           </ListGroup.Item>
         ))}
       </ListGroup>
+
+      <div>
+        <button
+          onClick={() => setPage((prevPage) => Math.max(prevPage - 1, 1))}
+          disabled={page === 1}
+        >
+          Previous
+        </button>
+        <button onClick={() => setPage((prevPage) => prevPage + 1)}>
+          Next
+        </button>
+      </div>
     </div>
   );
 };
