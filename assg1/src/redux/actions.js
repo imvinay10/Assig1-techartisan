@@ -1,4 +1,4 @@
 export const toggleFavorite = (repoId) => ({
-    type: 'toggle_favorite',
-    payload: repoId,
-})
+  type: "toggle_favorite",
+  payload: repoId,
+});

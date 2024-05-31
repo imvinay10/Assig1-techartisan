@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { fetchOwnerRepos } from "../controllers/repoController";
 import Badge from "react-bootstrap/Badge";
 import ListGroup from "react-bootstrap/ListGroup";
+import Button from "react-bootstrap/esm/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as RegularHeart } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as SolidHeart } from "@fortawesome/free-solid-svg-icons";
@@ -29,6 +30,9 @@ const OwnerRepos = () => {
             key={repo.id}
             as="li"
             className="d-flex justify-content-between align-items-start"
+            style={
+              favorites.includes(repo.id) ? { backgroundColor: "#42f5e6" } : {}
+            }
           >
             <div className="ms-2 me-auto">
               <div className="fw-bold">
@@ -66,15 +70,16 @@ const OwnerRepos = () => {
       </ListGroup>
 
       <div>
-        <button
+        <Button
           onClick={() => setPage((prevPage) => Math.max(prevPage - 1, 1))}
           disabled={page === 1}
         >
           Previous
-        </button>
-        <button onClick={() => setPage((prevPage) => prevPage + 1)}>
+        </Button>
+        {"    "}
+        <Button onClick={() => setPage((prevPage) => prevPage + 1)}>
           Next
-        </button>
+        </Button>
       </div>
     </div>
   );

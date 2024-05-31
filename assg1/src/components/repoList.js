@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import { fetchRepo } from "../controllers/repoController";
-import {useFavorites} from "../controllers/favoriteController";
+import { useFavorites } from "../controllers/favoriteController";
 import { Link } from "react-router-dom";
 import Table from "react-bootstrap/Table";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { SolidHeart, RegularHeart } from '../Assets/Icons';
+import { SolidHeart, RegularHeart } from "../Assets/Icons";
 // import {useDispatch, useSelector} from "react-redux";
 // import { toggleFavorite } from "../redux/actions";
 
 export const RepoList = () => {
   const [repos, setRepo] = useState([]);
-  const {handleFavoriteClick, favorites} = useFavorites();
+  const { handleFavoriteClick, favorites } = useFavorites();
   const [page, setPage] = useState(1);
   // const dispatch = useDispatch();
   // const favorites = useSelector(state => state.favorite.favorites);
@@ -37,8 +37,22 @@ export const RepoList = () => {
         <tbody>
           {repos.map((repo, index) => (
             <tr key={repo.id}>
-              <td>{index + 1}</td>
-              <td>
+              <td
+                style={
+                  favorites.includes(repo.id)
+                    ? { backgroundColor: "#42f5e6" }
+                    : {}
+                }
+              >
+                {index + 1}
+              </td>
+              <td
+                style={
+                  favorites.includes(repo.id)
+                    ? { backgroundColor: "#42f5e6" }
+                    : {}
+                }
+              >
                 <Link
                   to={`/repo/${repo.full_name}`}
                   className="text-decoration-none"
@@ -46,20 +60,26 @@ export const RepoList = () => {
                   {repo.name}
                 </Link>
               </td>
-              <td>
+              <td
+                style={
+                  favorites.includes(repo.id)
+                    ? { backgroundColor: "#42f5e6" }
+                    : {}
+                }
+              >
                 {" "}
                 <FontAwesomeIcon
-                  icon={favorites.includes(repo.id)? SolidHeart : RegularHeart}
+                  icon={favorites.includes(repo.id) ? SolidHeart : RegularHeart}
                   style={{ fontSize: "20px", margin: "5px" }}
-                  onClick={()=> handleFavoriteClick(repo.id)}
+                  onClick={() => handleFavoriteClick(repo.id)}
                 />
               </td>
             </tr>
           ))}
         </tbody>
       </Table>
-          
-        { /*GitHub API Not supporting pagination for some reason. */}
+
+      {/*GitHub API Not supporting pagination for some reason. */}
 
       {/* <div>
         <button

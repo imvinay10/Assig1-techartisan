@@ -3,7 +3,9 @@ import RepoDetails from "../components/RepoDetails";
 
 const RepoDetailsView = () => {
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '1rem'}}>
+    <div
+      style={{ display: "flex", justifyContent: "center", paddingTop: "1rem" }}
+    >
       <RepoDetails />
     </div>
   );
